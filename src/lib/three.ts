@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import CANNON from 'cannon';
 import { plate, plateBody, racletteMaterial, racletteGeometry, racletteShape } from '$lib/object';
 
@@ -26,6 +27,34 @@ function resize() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+// Models
+const gltLoader = new GLTFLoader();
+// table
+gltLoader.load('/Table/Table.glb', (table) => {
+	const tableModel = table.scene.children[0];
+	tableModel.position.set(0, -2, 0);
+	tableModel.scale.set(0.25, 0.25, 0.25);
+	const tableMaterial = new THREE.MeshStandardMaterial({ color: '#5c2d07' });
+	scene.add(tableModel);
+
+	tableModel.traverse((object) => {
+		object.material = tableMaterial;
+		object.material.needsUpdate = true;
+	});
+});
+
+// plate
+gltLoader.load('/plate/Plate.glb', (plate) => {
+	const plateModel = plate.scene.children[0];
+	plateModel.scale.set(0.025, 0.025, 0.025);
+	console.log('PLATE POSITION', plateModel.position);
+	scene.add(plateModel);
+});
+
+// light
+const light = new THREE.AmbientLight(0xffffff, 2.4);
+scene.add(light);
+
 //Materials
 const defaultMaterial = new CANNON.Material('default');
 const defaultContactMaterial = new CANNON.ContactMaterial(defaultMaterial, defaultMaterial, {
@@ -34,8 +63,9 @@ const defaultContactMaterial = new CANNON.ContactMaterial(defaultMaterial, defau
 });
 world.defaultContactMaterial = defaultContactMaterial;
 
-scene.add(plate);
+// scene.add(plate);
 world.addBody(plateBody);
+console.log('PLATE BODY', plateBody.position);
 
 export function addRaclette(numberOfRaclette: number) {
 	currentRacletteNumber++;
@@ -63,9 +93,9 @@ export function removeRaclette(numberOfRaclette: number) {
 	const racletteToRemove = currentRacletteNumber - numberOfRaclette;
 
 	for (let i = 0; i < racletteToRemove; i++) {
-		world.remove(raclettes[i].body);
-		scene.remove(raclettes[i].mesh);
-		raclettes.splice(i, 1);
+		world.remove(raclettes[0].body);
+		scene.remove(raclettes[0].mesh);
+		raclettes.splice(0, 1);
 		currentRacletteNumber--;
 	}
 }
