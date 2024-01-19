@@ -15,6 +15,7 @@
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@types/cannon": "^0.1.12",
 		"@types/eslint": "8.56.0",
 		"@types/three": "^0.160.0",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
@@ -32,7 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"cannon-es": "^0.20.0",
+		"cannon": "^0.6.2",
 		"three": "^0.160.0"
 	}
 }
