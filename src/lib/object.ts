@@ -6,9 +6,8 @@ export const plate = new THREE.Mesh(
 	new THREE.MeshBasicMaterial({ color: 'white' })
 );
 
-const plateShape = new CANNON.Box(new CANNON.Vec3(2, 0.1 * 0.5, 2));
+const plateShape = new CANNON.Box(new CANNON.Vec3(1, 0.1 * 0.5, 1));
 export const plateBody = new CANNON.Body();
-plateBody.mass = 0;
 plateBody.addShape(plateShape);
 
 const racletteDimension = {
@@ -22,7 +21,7 @@ export const racletteGeometry = new THREE.BoxGeometry(
 	racletteDimension.height,
 	racletteDimension.depth
 );
-export const racletteMaterial = new THREE.MeshBasicMaterial({ color: 'red' });
+export const racletteMaterial = new THREE.MeshBasicMaterial({ color: '#feecb9' });
 
 export const racletteShape = new CANNON.Box(
 	new CANNON.Vec3(racletteDimension.width, racletteDimension.height, racletteDimension.depth)
