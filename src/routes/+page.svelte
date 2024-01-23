@@ -1,12 +1,21 @@
 <script lang="ts">
-	import { createScene, handleRaclette } from '$lib/three';
+	import { handleRaclette } from '$lib/helpers/raclettes';
 	import { onMount } from 'svelte';
+	import { loadModel, placePlateModel, placeTableModel } from '$lib/helpers/functions';
+	import { createScene } from '$lib/three';
+	import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 	let canvas;
 	let racletteSlice = 0;
 	let racletteSlicePound = 30;
 	onMount(() => {
 		createScene(canvas);
+		loadModel('/assets/Plate.glb').then((model: GLTF) => {
+			placePlateModel(model);
+		});
+		loadModel('/assets/Table.glb').then((model: GLTF) => {
+			placeTableModel(model);
+		});
 	});
 </script>
 
