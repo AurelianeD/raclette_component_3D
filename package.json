@@ -33,6 +33,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@threlte/core": "^7.0.12",
+		"@threlte/extras": "^8.3.0",
 		"cannon": "^0.6.2",
 		"three": "^0.160.0"
 	}
