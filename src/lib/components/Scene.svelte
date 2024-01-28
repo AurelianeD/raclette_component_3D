@@ -1,20 +1,17 @@
 <script lang="ts">
 	import { T, extend } from '@threlte/core';
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-	import { interactivity } from '@threlte/extras';
-	import Camera from '$lib/components/Camera.svelte';
 	import { currentRacletteNumberStore } from '$lib/stores.ts';
+	import { interactivity } from '@threlte/extras';
+	import Lights from '$lib/components/Lights.svelte';
+	import Camera from '$lib/components/Camera.svelte';
+	import Models from '$lib/components/Models.svelte';
+	import RacletteMesh from '$lib/components/RacletteMesh.svelte';
 
 	const { target } = interactivity();
 	target.set(document.getElementById('int-target') ?? undefined);
 
 	extend({ OrbitControls });
-
-	const racletteDimension = {
-		x: 0.4,
-		y: 0.03,
-		z: 0.7
-	};
 
 	let array: number[];
 
@@ -24,13 +21,10 @@
 </script>
 
 <Camera />
+<Lights />
 
-<T.AmbientLight intensity={0.4} />
-<T.DirectionalLight position={[0, 10, 10]} />
+<Models />
 
 {#each array as _, index}
-	<T.Mesh position.y={index}>
-		<T.BoxGeometry args={[racletteDimension.x, racletteDimension.y, racletteDimension.z]} />
-		<T.MeshStandardMaterial color="beige" />
-	</T.Mesh>
+	<RacletteMesh {index} />
 {/each}
